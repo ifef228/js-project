@@ -47,7 +47,7 @@ export class MainPage {
         const productPage = new ProductPage(this.parent, cardId)
         productPage.render()
     }
-    
+
     render() {
         this.parent.innerHTML = ''
         const html = this.getHTML()
@@ -58,6 +58,5 @@ export class MainPage {
             const productCardComponent = new ProductCardComponent(this.pageRoot)
             productCardComponent.render(item, this.clickCard.bind(this))
         })
-        
     }
 }
