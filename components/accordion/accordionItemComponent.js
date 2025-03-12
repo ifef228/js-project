@@ -1,6 +1,7 @@
 export class AccordionItemComponent {
-    constructor(parent) {
+    constructor(parent, document) {
         this.parent = parent
+        this.document = document
     }
 
     getHTML(data) {
@@ -14,7 +15,7 @@ export class AccordionItemComponent {
                 </h2>
                 <div id="panelsStayOpen-collapse${data.id}" class="accordion-collapse collapse" aria-labelledby="heading${data.id}">
                     <div class="accordion-body">
-                        <img class="card-img-top dog-img" src=${data.src} alt="картинка" style="width: 20%;">
+                        <img class="card-img-top dog-img" src=${data.src} alt="картинка" style="width: 40%;">
                         <div style="margin-top: 5px;">
                             <strong>${data.title} </strong> ${data.text}
                             <button class="btn btn-primary" id="click-card-${data.id}" data-id="${data.id}" style="margin-top: 5px;">Нажми на меня</button>
@@ -27,7 +28,7 @@ export class AccordionItemComponent {
     }
 
     addListeners(data, listener) {
-        document
+        this.document
             .getElementById(`click-card-${data.id}`)
             .addEventListener("click", listener)
     }

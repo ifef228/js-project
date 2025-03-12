@@ -1,6 +1,6 @@
 import { MainPage } from "./pages/main/index.js"
 
-const root = document.getElementById('root')
-
-const mainPage = new MainPage(root);
+const browseDocument = document
+const root = browseDocument.getElementById('root')
+const mainPage = new MainPage(root, browseDocument);
 mainPage.render();

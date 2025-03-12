@@ -1,14 +1,16 @@
 import { AccordionComponent } from "../../components/accordion/accordionComponent.js";
 import {ProductCardComponent} from "../../components/product-card/index.js";
 import { ProductPage } from "../product/index.js";
+import { DogPage } from "../dog/index.js";
 
 export class MainPage {
-    constructor(parent) {
+    constructor(parent, document) {
         this.parent = parent
+        this.document = document
     }
 
     get pageRoot() {
-        return document.getElementById('main-page')
+        return this.document.getElementById('main-page')
     }
 
     getHTML() {
@@ -45,8 +47,8 @@ export class MainPage {
     clickCard(e) {
         const cardId = e.target.dataset.id
     
-        const productPage = new ProductPage(this.parent, cardId)
-        productPage.render()
+        const dogPage = new DogPage(this.parent, cardId, this.getData(), this.document)
+        dogPage.render()
     }
 
     render() {
@@ -55,13 +57,8 @@ export class MainPage {
         this.parent.insertAdjacentHTML('beforeend', html);
 
         const data = this.getData();
-        
-        // data.forEach((item) => {
-        //     const productCardComponent = new ProductCardComponent(this.pageRoot)
-        //     productCardComponent.render(item, this.clickCard.bind(this))
-        // });
 
-        const accordon = new AccordionComponent(this.pageRoot);
+        const accordon = new AccordionComponent(this.pageRoot, this.document);
         accordon.render(data, this.clickCard.bind(this))
     }
 }

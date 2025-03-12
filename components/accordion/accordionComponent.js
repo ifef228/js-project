@@ -1,12 +1,13 @@
 import { AccordionItemComponent } from "./accordionItemComponent.js";
 
 export class AccordionComponent {
-    constructor(parent) {
+    constructor(parent, document) {
         this.parent = parent
+        this.document = document
     }
 
     get pageRoot() {
-        return document.getElementById('accordionExample')
+        return this.document.getElementById('accordionExample')
     }
 
     getHTML() {
@@ -18,7 +19,7 @@ export class AccordionComponent {
         this.parent.insertAdjacentHTML('beforeend', html)
 
         data.forEach(element => {
-            const accordionItem = new AccordionItemComponent(this.pageRoot)
+            const accordionItem = new AccordionItemComponent(this.pageRoot, this.document)
             accordionItem.render(element, listener)
         });
     }

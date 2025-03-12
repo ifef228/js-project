@@ -1,11 +1,12 @@
 export class BackButtonComponent {
-    constructor(parent) {
+    constructor(parent, document) {
         this.parent = parent
+        this.document = document
     }
 
     addListeners(listener) {
-        document.getElementById("back-button")
-        .addEventListener('click', listener)
+        this.document.getElementById("back-button")
+            .addEventListener('click', listener)
     }
 
     getHtml() {
