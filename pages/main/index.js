@@ -1,6 +1,4 @@
 import { AccordionComponent } from "../../components/accordion/accordionComponent.js";
-import {ProductCardComponent} from "../../components/product-card/index.js";
-import { ProductPage } from "../product/index.js";
 import { DogPage } from "../dog/index.js";
 
 export class MainPage {
