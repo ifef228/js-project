@@ -1,8 +1,8 @@
 import {MainPage} from "../main/index.js"
 import { BackButtonComponent } from "../../components/back-button/index.js";
-import { DogComponent } from "../../components/dog/index.js"
+import { ProductComponent } from "../../components/product/index.js"
 
-export class DogPage {
+export class ProductPage {
     constructor(root, id, data, document) {
         this.root = root
         this.id = id
@@ -33,17 +33,17 @@ export class DogPage {
             const html = this.getHTML()
             this.root.insertAdjacentHTML('beforeend', html)
         
-            const dog = new DogComponent(this.pageRoot)
+            const product = new ProductComponent(this.pageRoot)
             let dataId = +this.id
             if (isNaN(dataId)) {
                 dataId = 1
             } 
 
-            const dogData = this.data.find(x => x.id === dataId)
-            if(!dogData) {
+            const productData = this.data.find(x => x.id === dataId)
+            if(!productData) {
                 console.error("polundra!!!")
             }
-            dog.render(dogData)
+            product.render(productData)
 
             const backButton = new BackButtonComponent(this.pageRoot, this.document)
             backButton.render(this.clickBack.bind(this))

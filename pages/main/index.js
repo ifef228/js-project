@@ -1,5 +1,5 @@
 import { AccordionComponent } from "../../components/accordion/accordionComponent.js";
-import { DogPage } from "../dog/index.js";
+import { ProductPage } from "../product/index.js";
 
 export class MainPage {
     constructor(parent, document) {
@@ -23,20 +23,20 @@ export class MainPage {
         return [
             {
                 id: 1,
-                src: "https://kinpet.ru/upload/resize_cache/uf/04f/976_766_1d083178cba05bb44c32142a386e8af27/A16479B3_18B6_41E4_A4F5_37831C7AD701.jpeg",
-                title: "Пудель",
-                text: "Такого пуделя еще поискать!"
+                src: "https://trashbox.ru/ifiles/1974912_d3480d_gtt5c89xwaaulkr/128-gb-60-gc-25-vt-vsyo-eto-prosto-nepriemlemo-dlya-flagmana-v-2024-godu-1.jpeg",
+                title: "Айфон",
+                text: "Такого лайфона еще поискать!"
             },
             {
                 id: 2,
-                src: "https://i.pinimg.com/736x/31/c1/6d/31c16dbbf94d94a3f26228d8fdddcebb.jpg",
-                title: "Алабай",
-                text: "Этот пес жмет больше тебя!"
+                src: "https://cdn1.ozone.ru/s3/multimedia-r/6309430755.jpg",
+                title: "Домкрат",
+                text: "Этот домкрат жмет больше тебя!"
             },
             {
                 id: 3,
-                src: "https://i.pinimg.com/736x/0b/e3/55/0be3554a1d0980b24e7d0e0b9740fb15.jpg",
-                title: "Кавказская овчарка",
+                src: "https://i.pinimg.com/736x/64/6c/80/646c80ad9214a95e9ecd34015cd57256.jpg",
+                title: "Форма ФК Анжи",
                 text: "Оле - ола анжи Махачкала!"
             },
         ]
@@ -45,8 +45,8 @@ export class MainPage {
     clickCard(e) {
         const cardId = e.target.dataset.id
     
-        const dogPage = new DogPage(this.parent, cardId, this.getData(), this.document)
-        dogPage.render()
+        const productPage = new ProductPage(this.parent, cardId, this.getData(), this.document)
+        productPage.render()
     }
 
     render() {
