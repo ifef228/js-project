@@ -1,6 +1,9 @@
+import { OperaitonsPage } from "../../pages/operations/index.js"
+
 export class SearchComponent {
-    constructor(parent) {
+    constructor(parent, data) {
         this.parent = parent
+        this.data = data
     }
 
     getHtml() {
@@ -18,6 +21,9 @@ export class SearchComponent {
                         </button>
                         <button id="clear-search" class="yandex-button">
                             Очистить
+                        </button>
+                        <button id="operations" class="yandex-button">
+                            Операции
                         </button>
                     </div>
                     <div>
@@ -136,6 +142,11 @@ export class SearchComponent {
                 document.getElementById('search-button').click();
             }
         });
+
+        document.getElementById("operations").addEventListener("click", () => {
+            const opsPage = new OperaitonsPage(document.getElementById('root'), this.data)
+            opsPage.render()
+        })
     }
     
     // Метод для отображения всех карточек
