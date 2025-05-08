@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление товара — Яндекс Маркет</title>
+    <style>
+        /* Основные стили */
+        :root {
+            --primary: #FC3F1D;
+            --primary-hover: #F33517;
+            --yellow: #FFDD2D;
+            --yellow-hover: #FCC521;
+            --gray-lightest: #F5F5F5;
+            --gray-light: #E5E5E5;
+            --gray: #B3B3B3;
+            --dark: #21201F;
+            --blue: #3E77AA;
+            --blue-light: #E5F0FF;
+            --green: #34A853;
+            --red: #F33;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'YS Text', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        .header {
+            background: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 16px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            display: inline-flex;
+            color: var(--dark);
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+            align-items: center;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            margin-right: 8px;
+            font-size: 22px;
+        }
+
+        /* Заголовок страницы */
+        .page-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .page-description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        /* Форма добавления товара */
+        .add-product-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .form-header {
+            margin-bottom: 24px;
+        }
+
+        .form-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-description {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--blue);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(62, 119, 170, 0.2);
+        }
+
+        .form-hint {
+            display: block;
+            margin-top: 6px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .has-error .form-control {
+            border-color: var(--red);
+        }
+
+        .has-error .form-hint {
+            color: var(--red);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Предпросмотр изображения */
+        .image-preview {
+            margin-top: 16px;
+            background: var(--gray-lightest);
+            border-radius: 6px;
+            padding: 16px;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-placeholder {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+        }
+
+        /* Кнопки */
+        .form-actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 500;
+            text-align: center;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--yellow-hover);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--dark);
+            border: 1px solid var(--gray-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-lightest);
+        }
+
+        /* Инфо-блок */
+        .info-block {
+            background-color: var(--blue-light);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .info-icon {
+            font-size: 20px;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+
+        .info-text {
+            font-size: 14px;
+            color: #5a5a5a;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding: 24px 0;
+            border-top: 1px solid var(--gray-light);
+            font-size: 13px;
+            color: #777;
+            text-align: center;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .form-actions {
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .add-product-card {
+                padding: 20px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
+                <a href="#" class="logo">
+                    <span class="logo-icon">Я</span>
+                    Маркет CMS
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main class="container">
+        <h1 class="page-title">Добавление товара</h1>
+        <p class="page-description">Добавьте новый товар в каталог</p>
+
+        <!-- Информационный блок -->
+        <div class="info-block">
+            <div class="info-icon">ℹ️</div>
+            <div class="info-text">
+                Заполните все обязательные поля. Товар будет опубликован после проверки модератором.
+            </div>
+        </div>
+
+        <!-- Форма добавления товара -->
+        <div class="add-product-card">
+            <div class="form-header">
+                <h2 class="form-title">Информация о товаре</h2>
+                <p class="form-description">Заполните основную информацию о товаре</p>
+            </div>
+
+            <form id="add-product-form">
+                <!-- Изображение товара -->
+                <div class="form-group">
+                    <label for="product-src" class="form-label">URL изображения товара *</label>
+                    <input 
+                        type="url" 
+                        class="form-control" 
+                        id="product-src" 
+                        name="src" 
+                        placeholder="https://example.com/image.jpg" 
+                        required 
+                    >
+                    <span class="form-hint">Укажите прямую ссылку на изображение товара</span>
+                    
+                    <!-- Предпросмотр изображения -->
+                    <div class="image-preview">
+                        <div class="preview-placeholder">Здесь будет отображаться предпросмотр изображения</div>
+                        <!-- <img src="" alt="Предпросмотр товара" class="preview-image" style="display: none;"> -->
+                    </div>
+                </div>
+
+                <!-- Название товара -->
+                <div class="form-group">
+                    <label for="product-title" class="form-label">Название товара *</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="product-title" 
+                        name="title" 
+                        placeholder="Например: Смартфон Apple iPhone 15 Pro 256 ГБ" 
+                        required 
+                        maxlength="100"
+                    >
+                    <span class="form-hint">До 100 символов</span>
+                </div>
+
+                <!-- Описание товара -->
+                <div class="form-group">
+                    <label for="product-text" class="form-label">Описание товара *</label>
+                    <textarea 
+                        class="form-control" 
+                        id="product-text" 
+                        name="text" 
+                        placeholder="Подробное описание товара" 
+                        required 
+                        maxlength="1000"
+                    ></textarea>
+                    <span class="form-hint">Опишите товар подробно, указав его характеристики и особенности</span>
+                </div>
+
+                <!-- Кнопки действий -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Добавить товар</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2023 Маркет CMS. Все права защищены.</p>
+        </div>
+    </footer>
+</body>
+</html>
