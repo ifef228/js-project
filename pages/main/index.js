@@ -1,5 +1,7 @@
 import { ProductPage } from "../product/index.js";
 import { ProductCardComponent } from "../../components/prodauct-card/index.js";
+import { moveElement } from "../../homework.js";
+import { SearchComponent } from "../../components/search/index.js";
 
 export class MainPage {
     constructor(parent, document) {
@@ -16,28 +18,10 @@ export class MainPage {
     getHTML() {
         return (
             `
-            <div id="main-page" class="d-flex flex-wrap">
-                <button id="plus" style="
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: #FFF;
-    border: 2px solid #FFDB4D;
-    border-radius: 8px;
-    color: #000;
-    font-family: 'YS Text', Arial, sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-">
-    <span style="
-        display: inline-block;
-        transition: transform 0.3s ease;
-    ">+</span>
-</button>
+            <div id="main-page">
+                <!-- SearchComponent будет добавлен здесь -->
+            </div>
+            <div id="cards-container"></div>
             `
         )
     }
@@ -60,7 +44,7 @@ export class MainPage {
                 id: 3,
                 src: "https://i.pinimg.com/736x/64/6c/80/646c80ad9214a95e9ecd34015cd57256.jpg",
                 title: "Форма ФК Анжи",
-                text: "Оле - ола анжи Махачкала!"
+                text: "Удобная и практичная"
             },
         ]
     }
@@ -68,15 +52,18 @@ export class MainPage {
     addCard() {
         const element = this.getData()[0]
 
+        const cardTrio = this.document.getElementById(`card-trio-${Math.floor((this.i - 1) / 3)}`)
+        if (!cardTrio) {
+            const container = this.document.getElementById('cards-container')
+            container.insertAdjacentHTML('beforeend', `<div id="card-trio-${Math.floor((this.i - 1) / 3)}" class="card-row"></div>`)
+        }
+
         const p = new ProductCardComponent(this.document.getElementById(`card-trio-${Math.floor((this.i - 1) / 3)}`))
         p.render(element, this.clickCard.bind(this))
 
         if (this.i % 3 == 0) {
-            this.parent.insertAdjacentHTML('beforeend',
-                `
-                        <div id="card-trio-${Math.floor(this.i / 3)}" style="display: flex; gap: 20px; flex-wrap: nowrap; margin-top: 10px;"></div>
-                    `
-            )
+            const container = this.document.getElementById('cards-container')
+            container.insertAdjacentHTML('beforeend', `<div id="card-trio-${Math.floor(this.i / 3)}" class="card-row"></div>`)
         }
 
         (this.i)++
@@ -94,28 +81,39 @@ export class MainPage {
         const html = this.getHTML();
         this.parent.insertAdjacentHTML('beforeend', html);
 
-        const data = this.getData()
+        // Добавляем стили для карточек
+        const style = document.createElement('style');
+        style.textContent = `
+            .card-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+        `;
+        document.head.appendChild(style);
 
-        this.parent.insertAdjacentHTML('beforeend',
-            `
-                <div id="card-trio-${Math.floor(this.i / 3)}" style="display: flex; gap: 20px; flex-wrap: nowrap; margin-top: 10px;"></div>
-            `
-        )
+        const searchComponent = new SearchComponent(this.pageRoot)
+        searchComponent.render()
+
+        // Настраиваем обработчик для кнопки добавления
+        document.getElementById('plus').addEventListener('click', () => this.addCard())
+
+        let data = this.getData()
+        moveElement(data, 1, 0)
+
+        const container = this.document.getElementById('cards-container')
+        container.insertAdjacentHTML('beforeend', `<div id="card-trio-0" class="card-row"></div>`)
+
         data.forEach(element => {
             const p = new ProductCardComponent(this.document.getElementById(`card-trio-${Math.floor((this.i - 1) / 3)}`))
             p.render(element, this.clickCard.bind(this))
 
             if (this.i % 3 == 0) {
-                this.parent.insertAdjacentHTML('beforeend',
-                    `
-                        <div id="card-trio-${Math.floor(this.i / 3)}" style="display: flex; gap: 20px; flex-wrap: nowrap; margin-top: 10px;"></div>
-                    `
-                )
+                container.insertAdjacentHTML('beforeend', `<div id="card-trio-${Math.floor(this.i / 3)}" class="card-row"></div>`)
             }
 
             (this.i)++
         });
-
-        document.getElementById(`plus`).addEventListener('click', () => this.addCard())
     }
 }

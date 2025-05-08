@@ -32,7 +32,7 @@ export class BackButtonComponent {
     onmouseover="this.style.backgroundColor='#f0c800'"
     onmouseout="this.style.backgroundColor='#FFDB4D'"
 >
-    Назад
+    🏠︎
 </button>`
         )
     }
