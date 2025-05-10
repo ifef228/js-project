@@ -4,16 +4,18 @@ class Ajax {
      * @param {string} url - Адрес запроса
      * @param {function} callback - Функция обратного вызова (data, status)
      */
-    get(url, callback) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
-        xhr.send();
+    async get(url, callback) {
+        try {
+            const result = await fetch(url, {
+                method: "GET"
+            })
+                .then(r => r.json())
+                .then(r => callback(r))
 
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                this._handleResponse(xhr, callback);
-            }
-        };
+            return result
+        } catch (err) {
+            console.error("не удалось выполнить get - запрос:", err)
+        }
     }
 
     /**
@@ -22,17 +24,19 @@ class Ajax {
      * @param {object} data - Данные для отправки
      * @param {function} callback - Функция обратного вызова (data, status)
      */
-    post(url, data, callback) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', url);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(data));
-
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                this._handleResponse(xhr, callback);
-            }
-        };
+    async post(url, data, callback) {
+        try {
+            const result = await fetch(url, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: data
+            })
+                .then(r => r.json())
+                .then(r => callback(r))
+            return result
+        } catch (err) {
+            console.error(`не удалось выполнить post - запрос ${url}: ${err}`)
+        }
     }
 
     /**
@@ -41,17 +45,20 @@ class Ajax {
      * @param {object} data - Данные для обновления
      * @param {function} callback - Функция обратного вызова (data, status)
      */
-    patch(url, data, callback) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('PATCH', url);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(data));
+    async patch(url, data, callback) {
+        try {
+            const result = await fetch(url, {
+                method: "PATCH",
+                headers: { 'Content-Type': 'application/json' },
+                body: data
+            })
+                .then(r => r.json())
+                .then(r => callback(r))
 
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                this._handleResponse(xhr, callback);
-            }
-        };
+            return result
+        } catch (err) {
+            console.error(`не удалось выполнить patch - запрос ${url}: ${err}`)
+        }
     }
 
     /**
@@ -59,16 +66,18 @@ class Ajax {
      * @param {string} url - Адрес запроса
      * @param {function} callback - Функция обратного вызова (data, status)
      */
-    delete(url, callback) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('DELETE', url);
-        xhr.send();
+    async delete(url, callback) {
+        try {
+            const result = await fetch(url, {
+                method: "DELETE",
+            })
+                .then(r => r.json())
+                .then(r => callback(r))
 
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                this._handleResponse(xhr, callback);
-            }
-        };
+            return result
+        } catch (err) {
+            console.error(`не удалось выполнить patch - запрос ${url}: ${err}`)
+        }
     }
 
     /**
