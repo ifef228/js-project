@@ -474,7 +474,7 @@ export class EditPage {
 
         const data = Object.fromEntries(formData)
 
-        ajax.patch(productUrls.updateProductById(), data, (response) => console.log(response))
+        ajax.patch(productUrls.updateProductById(this.data.id), data, (response) => console.log(response))
     }
 
     addListenerToSrcInput() {

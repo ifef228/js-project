@@ -29,7 +29,7 @@ class Ajax {
             const result = await fetch(url, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: data
+                body: JSON.stringify(data)
             })
                 .then(r => r.json())
                 .then(r => callback(r))
@@ -50,7 +50,7 @@ class Ajax {
             const result = await fetch(url, {
                 method: "PATCH",
                 headers: { 'Content-Type': 'application/json' },
-                body: data
+                body: JSON.stringify(data)
             })
                 .then(r => r.json())
                 .then(r => callback(r))
