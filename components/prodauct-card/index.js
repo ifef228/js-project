@@ -9,7 +9,7 @@ export class ProductCardComponent {
         // Проверка на палиндром
         const isPalindromeResult = isPalindrome(data.title);
         // Находим количество слов, начинающихся на "abc"
-        const prefixCount = countPrefixes(data.text.split(' '), 'abc');
+        const prefixCount = countPrefixes(data.text.split(''), 'Так');
         
         return (
             `
@@ -21,7 +21,7 @@ export class ProductCardComponent {
                         ${isPalindromeResult ? '<span class="palindrome-badge">Палиндром!</span>' : ''}
                     </div>
                     <p>${data.text} 
-                       ${prefixCount > 0 ? `<span class="prefix-info">(${prefixCount} слов начинаются с "abc")</span>` : ''}
+                       ${prefixCount > 0 ? `<span class="prefix-info">(${prefixCount} слов начинаются с "Так")</span>` : ''}
                     </p>
                     <button class="btn btn-primary" id="click-card-${data.id}" data-id="${data.id}"
                         style="width: 100%; padding: 10px; background-color: #FFDB4D; color: #000; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background-color 0.2s;">

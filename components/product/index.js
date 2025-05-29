@@ -21,7 +21,7 @@ export class ProductComponent {
         
         // Найдем число слов, начинающихся с "abc"
         const words = data.text.split(' ');
-        const abcWords = countPrefixes(words, 'abc');
+        const abcWords = countPrefixes(words, 'лай');
         
         return (
             `

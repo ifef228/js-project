@@ -38,7 +38,7 @@ export class MainPage {
                 id: 2,
                 src: "https://cdn1.ozone.ru/s3/multimedia-r/6309430755.jpg",
                 title: "Домкрат",
-                text: "Этот домкрат жмет больше тебя!"
+                text: "Этот домкрат жмет больше тебя! "
             },
             {
                 id: 3,
